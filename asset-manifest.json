@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/portudao-landing/static/css/main.073c9b0a.css",
+    "main.js": "/portudao-landing/static/js/main.f11ae279.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/logo.svg": "/portudao-landing/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/portudao-landing/index.html",
+    "main.073c9b0a.css.map": "/portudao-landing/static/css/main.073c9b0a.css.map",
+    "main.f11ae279.js.map": "/portudao-landing/static/js/main.f11ae279.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.f11ae279.js"
+  ]
+}
