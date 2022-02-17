@@ -1,16 +1,24 @@
 {
   "files": {
-    "main.css": "/portudao-landing/static/css/main.073c9b0a.css",
-    "main.js": "/portudao-landing/static/js/main.f11ae279.js",
+    "main.css": "/portudao-landing/static/css/main.964fdded.css",
+    "main.js": "/portudao-landing/static/js/main.02c64ff2.js",
+    "static/js/343.3425a59e.chunk.js": "/portudao-landing/static/js/343.3425a59e.chunk.js",
+    "static/js/804.1a0a1501.chunk.js": "/portudao-landing/static/js/804.1a0a1501.chunk.js",
     "static/js/787.c4e7f8f9.chunk.js": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js",
-    "static/media/logo.svg": "/portudao-landing/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/js/875.5903c326.chunk.js": "/portudao-landing/static/js/875.5903c326.chunk.js",
+    "static/media/metamask.svg": "/portudao-landing/static/media/metamask.a384a31606f036c3e3bfa2c866c7e9fd.svg",
+    "static/media/portuDAO-logo.png": "/portudao-landing/static/media/portuDAO-logo.4f870414aeaa329c9d09.png",
+    "static/media/coinbase.svg": "/portudao-landing/static/media/coinbase.cff53631170f77eeab60eab37653877c.svg",
     "index.html": "/portudao-landing/index.html",
-    "main.073c9b0a.css.map": "/portudao-landing/static/css/main.073c9b0a.css.map",
-    "main.f11ae279.js.map": "/portudao-landing/static/js/main.f11ae279.js.map",
-    "787.c4e7f8f9.chunk.js.map": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js.map"
+    "main.964fdded.css.map": "/portudao-landing/static/css/main.964fdded.css.map",
+    "main.02c64ff2.js.map": "/portudao-landing/static/js/main.02c64ff2.js.map",
+    "343.3425a59e.chunk.js.map": "/portudao-landing/static/js/343.3425a59e.chunk.js.map",
+    "804.1a0a1501.chunk.js.map": "/portudao-landing/static/js/804.1a0a1501.chunk.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js.map",
+    "875.5903c326.chunk.js.map": "/portudao-landing/static/js/875.5903c326.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.f11ae279.js"
+    "static/css/main.964fdded.css",
+    "static/js/main.02c64ff2.js"
   ]
 }
