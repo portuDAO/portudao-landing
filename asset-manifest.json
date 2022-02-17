@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/portudao-landing/static/css/main.964fdded.css",
-    "main.js": "/portudao-landing/static/js/main.2c328af1.js",
+    "main.js": "/portudao-landing/static/js/main.069c65d1.js",
     "static/js/343.3425a59e.chunk.js": "/portudao-landing/static/js/343.3425a59e.chunk.js",
-    "static/js/97.8896c933.chunk.js": "/portudao-landing/static/js/97.8896c933.chunk.js",
+    "static/js/97.1f604d16.chunk.js": "/portudao-landing/static/js/97.1f604d16.chunk.js",
     "static/js/643.51f24604.chunk.js": "/portudao-landing/static/js/643.51f24604.chunk.js",
     "static/js/787.c4e7f8f9.chunk.js": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js",
     "static/js/823.8ba84729.chunk.js": "/portudao-landing/static/js/823.8ba84729.chunk.js",
@@ -12,15 +12,15 @@
     "static/media/coinbase.svg": "/portudao-landing/static/media/coinbase.cff53631170f77eeab60eab37653877c.svg",
     "index.html": "/portudao-landing/index.html",
     "main.964fdded.css.map": "/portudao-landing/static/css/main.964fdded.css.map",
-    "main.2c328af1.js.map": "/portudao-landing/static/js/main.2c328af1.js.map",
+    "main.069c65d1.js.map": "/portudao-landing/static/js/main.069c65d1.js.map",
     "343.3425a59e.chunk.js.map": "/portudao-landing/static/js/343.3425a59e.chunk.js.map",
-    "97.8896c933.chunk.js.map": "/portudao-landing/static/js/97.8896c933.chunk.js.map",
+    "97.1f604d16.chunk.js.map": "/portudao-landing/static/js/97.1f604d16.chunk.js.map",
     "643.51f24604.chunk.js.map": "/portudao-landing/static/js/643.51f24604.chunk.js.map",
     "787.c4e7f8f9.chunk.js.map": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js.map",
     "823.8ba84729.chunk.js.map": "/portudao-landing/static/js/823.8ba84729.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.964fdded.css",
-    "static/js/main.2c328af1.js"
+    "static/js/main.069c65d1.js"
   ]
 }
