@@ -143,13 +143,13 @@ export default function Events({ rows }: Props) {
                 <TableCell style={{ width: 160 }} align="left">
                   {row.description}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+                <TableCell style={{ width: 160 }} align="center">
                   {row.start_date}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+                <TableCell style={{ width: 160 }} align="center">
                   {row.end_date}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+                <TableCell style={{ width: 160 }} align="center">
                   {row.expiry_date}
                 </TableCell>
                 <TableCell style={{ width: 160 }} align="center">
