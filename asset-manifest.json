@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/portudao-landing/static/css/main.964fdded.css",
-    "main.js": "/portudao-landing/static/js/main.a331e698.js",
+    "main.js": "/portudao-landing/static/js/main.3d350da5.js",
     "static/js/343.3425a59e.chunk.js": "/portudao-landing/static/js/343.3425a59e.chunk.js",
     "static/js/804.134f0403.chunk.js": "/portudao-landing/static/js/804.134f0403.chunk.js",
     "static/js/787.c4e7f8f9.chunk.js": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js",
@@ -11,7 +11,7 @@
     "static/media/coinbase.svg": "/portudao-landing/static/media/coinbase.cff53631170f77eeab60eab37653877c.svg",
     "index.html": "/portudao-landing/index.html",
     "main.964fdded.css.map": "/portudao-landing/static/css/main.964fdded.css.map",
-    "main.a331e698.js.map": "/portudao-landing/static/js/main.a331e698.js.map",
+    "main.3d350da5.js.map": "/portudao-landing/static/js/main.3d350da5.js.map",
     "343.3425a59e.chunk.js.map": "/portudao-landing/static/js/343.3425a59e.chunk.js.map",
     "804.134f0403.chunk.js.map": "/portudao-landing/static/js/804.134f0403.chunk.js.map",
     "787.c4e7f8f9.chunk.js.map": "/portudao-landing/static/js/787.c4e7f8f9.chunk.js.map",
@@ -19,6 +19,6 @@
   },
   "entrypoints": [
     "static/css/main.964fdded.css",
-    "static/js/main.a331e698.js"
+    "static/js/main.3d350da5.js"
   ]
 }
