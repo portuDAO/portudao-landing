@@ -15,7 +15,6 @@ import WalletConnection from './WalletConnection';
 
 const MenuItem = styled(Typography)`
   width: 80px;
-  color: black;
   cursor: pointer;
 `;
 
@@ -73,9 +72,11 @@ export default function MainNavbar(): JSX.Element {
           </StyledLogoBox>
 
           <Box style={{ flexGrow: 1 }}>
-            <MenuItem variant="h6" onClick={() => goToPOAP()}>
-              POAP
-            </MenuItem>
+            <Button variant="contained">
+              <MenuItem variant="h6" onClick={() => goToPOAP()}>
+                POAP
+              </MenuItem>
+            </Button>
           </Box>
 
           {!connected && (
