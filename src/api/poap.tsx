@@ -11,4 +11,14 @@ const getEvents = async (query: string) => {
   return false;
 };
 
-export default getEvents;
+const getEvent = async (id: string) => {
+  const path = `https://api.poap.xyz/events/id/${id}`;
+  const res = await axios.get(path);
+  if (res) {
+    console.log('Get event service:', res);
+    return res.data;
+  }
+  return false;
+};
+
+export { getEvent, getEvents };

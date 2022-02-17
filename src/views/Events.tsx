@@ -3,15 +3,15 @@ import { Box, Typography } from '@mui/material';
 import styled from 'styled-components';
 import spacing from 'theme/spacing';
 import { AiFillPlusCircle } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
-import Events from 'components/POAP/Events';
-import getEvents from 'api/poap';
+import { useEffect, useMemo, useState } from 'react';
+import { getEvents } from 'api/poap';
+import NFTList from 'components/Events/NFTList';
 
 const Container = styled(Box)`
   display: flex;
   flex-direction: column;
-  margin-right: ${spacing.xxxl}px;
-  margin-left: ${spacing.xxxl}px;
+  margin-right: ${spacing.xxl}px;
+  margin-left: ${spacing.xxl}px;
   margin-top: ${spacing.xxl}px;
 `;
 
@@ -31,6 +31,23 @@ export default function Landing(): JSX.Element {
     };
     fetchEvents();
   }, []);
+
+  const sortedEvents = useMemo(() => {
+    // @ts-ignore
+    return rows.sort((a, b) => {
+      // @ts-ignore
+      const aStartDate = new Date(a.start_date.replace('-', ' '));
+      console.log('aStartDate', aStartDate);
+      // @ts-ignore
+      const bStartDate = new Date(b.start_date.replace('-', ' '));
+      console.log('bStartDate', bStartDate);
+      // @ts-ignore
+      if (aStartDate > bStartDate) return 1;
+      if (aStartDate < bStartDate) return -1;
+      return 0;
+    });
+  }, [rows]);
+
   return (
     <Container>
       <StyledBox>
@@ -44,7 +61,7 @@ export default function Landing(): JSX.Element {
         />
       </StyledBox>
 
-      <Events rows={rows} />
+      <NFTList events={sortedEvents} />
     </Container>
   );
 }

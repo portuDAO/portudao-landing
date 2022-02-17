@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Button, IconButton, Menu, Tooltip } from '@mui/material';
 import styled from 'styled-components';
 import PortudaoLogo from 'icons/portuDAO-logo.png';
 import spacing from 'theme/spacing';
@@ -32,6 +32,7 @@ const StyledLogoBox = styled(Box)`
 const Container = styled(Box)`
   margin-right: ${spacing.xxl}px;
   margin-left: ${spacing.xxl}px;
+  margin-top: ${spacing.lg}px;
 `;
 
 const StyledBox = styled(Box)`
@@ -43,17 +44,36 @@ const StyledBox = styled(Box)`
   height: 52px;
 `;
 
+const StyledToolbar = styled(Toolbar)`
+  padding: 0 !important;
+  margin: 0 !important;
+`;
+
+const StyledMenu = styled(Menu)`
+  width: 200px;
+`;
+
 export default function MainNavbar(): JSX.Element {
   const [openConnect, setOpenConnect] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
+  const openMenu = Boolean(anchorEl);
+
   // @ts-ignore
-  const { connected, publicAddress } = useWallet();
+  const { connected, publicAddress, logout } = useWallet();
 
   const goToLanding = () => navigate('portudao-landing/');
-  const goToPOAP = () => navigate('portudao-landing/POAP');
-
+  const goToEvents = () => navigate('portudao-landing/events');
   const handleClose = () => setOpenConnect(false);
+
+  // @ts-ignore
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Container>
@@ -64,7 +84,7 @@ export default function MainNavbar(): JSX.Element {
           backgroundColor: 'white',
         }}
       >
-        <Toolbar>
+        <StyledToolbar>
           <StyledLogoBox>
             <StyledIconButton onClick={goToLanding}>
               <img src={PortudaoLogo} alt="" />
@@ -73,8 +93,8 @@ export default function MainNavbar(): JSX.Element {
 
           <Box style={{ flexGrow: 1 }}>
             <Button variant="contained">
-              <MenuItem variant="h6" onClick={() => goToPOAP()}>
-                POAP
+              <MenuItem variant="h6" onClick={() => goToEvents()}>
+                Events
               </MenuItem>
             </Button>
           </Box>
@@ -90,18 +110,38 @@ export default function MainNavbar(): JSX.Element {
           )}
 
           {connected && (
-            <StyledBox>
-              <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
-                {/* @ts-ignore */}
-                {`${publicAddress.substr(0, 4)} ... ${publicAddress.substr(
-                  publicAddress.length - 4,
-                  publicAddress.length
-                )}
+            <>
+              <StyledBox style={{ cursor: 'pointer' }} onClick={handleClickMenu}>
+                <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
+                  {/* @ts-ignore */}
+                  {`${publicAddress.substr(0, 4)} ... ${publicAddress.substr(
+                    publicAddress.length - 4,
+                    publicAddress.length
+                  )}
                             `}
-              </Typography>
-            </StyledBox>
+                </Typography>
+              </StyledBox>
+              <StyledMenu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={openMenu}
+                onClose={handleCloseMenu}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    handleCloseMenu();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </StyledMenu>
+            </>
           )}
-        </Toolbar>
+        </StyledToolbar>
       </AppBar>
 
       <Dialog

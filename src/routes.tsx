@@ -13,7 +13,8 @@ const Loadable = (Component) => (props) =>
   );
 
 const Landing = Loadable(lazy(() => import('views/Landing')));
-const POAP = Loadable(lazy(() => import('views/POAP')));
+const Events = Loadable(lazy(() => import('views/Events')));
+const Event = Loadable(lazy(() => import('views/Event')));
 
 const routes: RouteObject[] = [
   {
@@ -25,8 +26,12 @@ const routes: RouteObject[] = [
         element: <Landing />,
       },
       {
-        path: '/portudao-landing/POAP',
-        element: <POAP />,
+        path: '/portudao-landing/events',
+        element: <Events />,
+      },
+      {
+        path: '/portudao-landing/event/:eventId',
+        element: <Event />,
       },
     ],
   },
