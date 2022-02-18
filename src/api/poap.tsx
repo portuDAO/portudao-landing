@@ -21,4 +21,14 @@ const getEvent = async (id: string) => {
   return false;
 };
 
-export { getEvent, getEvents };
+const getToken = async (id: string) => {
+  const path = `https://api.poap.xyz/token/${id}`;
+  const res = await axios.get(path);
+  if (res) {
+    console.log('Get event service:', res);
+    return res.data;
+  }
+  return false;
+};
+
+export { getEvent, getEvents, getToken };

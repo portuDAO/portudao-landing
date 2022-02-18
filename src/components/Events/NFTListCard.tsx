@@ -29,7 +29,7 @@ export default function NFTListCard({ event }) {
 
   const navigate = useNavigate();
 
-  const goToNFTView = () => navigate(`/portudao-landing/event/${id}`);
+  const goToNFTView = () => navigate(`/event/${id}`);
 
   return (
     <StyledCard

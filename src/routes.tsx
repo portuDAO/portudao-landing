@@ -15,6 +15,7 @@ const Loadable = (Component) => (props) =>
 const Landing = Loadable(lazy(() => import('views/Landing')));
 const Events = Loadable(lazy(() => import('views/Events')));
 const Event = Loadable(lazy(() => import('views/Event')));
+const Gallery = Loadable(lazy(() => import('views/Gallery')));
 
 const routes: RouteObject[] = [
   {
@@ -22,16 +23,20 @@ const routes: RouteObject[] = [
     element: <NavbarLayout />,
     children: [
       {
-        path: '/portudao-landing/',
+        path: '/',
         element: <Landing />,
       },
       {
-        path: '/portudao-landing/events',
+        path: '/events',
         element: <Events />,
       },
       {
-        path: '/portudao-landing/event/:eventId',
+        path: '/event/:eventId',
         element: <Event />,
+      },
+      {
+        path: '/gallery',
+        element: <Gallery />,
       },
     ],
   },

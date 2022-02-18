@@ -37,10 +37,8 @@ export default function Landing(): JSX.Element {
     return rows.sort((a, b) => {
       // @ts-ignore
       const aStartDate = new Date(a.start_date.replace('-', ' '));
-      console.log('aStartDate', aStartDate);
       // @ts-ignore
       const bStartDate = new Date(b.start_date.replace('-', ' '));
-      console.log('bStartDate', bStartDate);
       // @ts-ignore
       if (aStartDate > bStartDate) return 1;
       if (aStartDate < bStartDate) return -1;
@@ -51,7 +49,7 @@ export default function Landing(): JSX.Element {
   return (
     <Container>
       <StyledBox>
-        <Typography variant="h4"> Events </Typography>
+        <Typography variant="h4"> All Events </Typography>
         <AiFillPlusCircle
           style={{
             width: '50px',

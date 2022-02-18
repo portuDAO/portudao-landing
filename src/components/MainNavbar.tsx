@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { Button, IconButton, Menu, Tooltip } from '@mui/material';
+import { Button, Icon, IconButton, Menu, Tooltip } from '@mui/material';
 import styled from 'styled-components';
 import PortudaoLogo from 'icons/portuDAO-logo.png';
 import spacing from 'theme/spacing';
@@ -16,10 +16,6 @@ import WalletConnection from './WalletConnection';
 const MenuItem = styled(Typography)`
   width: 80px;
   cursor: pointer;
-`;
-
-const StyledIconButton = styled(IconButton)`
-  width: 80px;
 `;
 
 const StyledLogoBox = styled(Box)`
@@ -63,8 +59,10 @@ export default function MainNavbar(): JSX.Element {
   // @ts-ignore
   const { connected, publicAddress, logout } = useWallet();
 
-  const goToLanding = () => navigate('portudao-landing/');
-  const goToEvents = () => navigate('portudao-landing/events');
+  const goToLanding = () => navigate('/');
+  const goToEvents = () => navigate('/events');
+  const goToGallery = () => navigate('/gallery');
+
   const handleClose = () => setOpenConnect(false);
 
   // @ts-ignore
@@ -86,15 +84,23 @@ export default function MainNavbar(): JSX.Element {
       >
         <StyledToolbar>
           <StyledLogoBox>
-            <StyledIconButton onClick={goToLanding}>
+            <IconButton onClick={goToLanding}>
               <img src={PortudaoLogo} alt="" />
-            </StyledIconButton>
+            </IconButton>
           </StyledLogoBox>
+
+          <Box style={{ marginRight: `${spacing.xxl}px` }}>
+            <Button variant="contained">
+              <MenuItem variant="body1" onClick={() => goToEvents()}>
+                Events
+              </MenuItem>
+            </Button>
+          </Box>
 
           <Box style={{ flexGrow: 1 }}>
             <Button variant="contained">
-              <MenuItem variant="h6" onClick={() => goToEvents()}>
-                Events
+              <MenuItem variant="body1" onClick={() => goToGallery()}>
+                Gallery
               </MenuItem>
             </Button>
           </Box>
