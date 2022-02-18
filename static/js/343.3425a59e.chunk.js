@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkclient=self.webpackChunkclient||[]).push([[343],{343:function(n,e,t){t.r(e),t.d(e,{default:function(){return f}});var i,c=t(168),r=t(4554),u=t(890),l=t(4603),s=t(184),a=(0,l.ZP)(r.Z)(i||(i=(0,c.Z)(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n"])));function f(){return(0,s.jsx)(a,{children:(0,s.jsx)(u.Z,{variant:"h3",children:" Landing "})})}}}]);
-//# sourceMappingURL=343.3425a59e.chunk.js.map
