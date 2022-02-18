@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "homepage": "https://portudao.github.io/portudao-landing",
+  "homepage": "https://portudao.io",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
