@@ -9,15 +9,12 @@ const Container = styled(Box)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h3 {
-    margin-bottom: ${spacing.xxl}px;
-  }
+  margin-top: ${spacing.xxl}px;
 `;
 
 export default function Landing(): JSX.Element {
   return (
     <Container>
-      <Typography variant="h3"> Landing </Typography>
       <img src={Portudao} alt="" />
     </Container>
   );
