@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { Button, Icon, IconButton, Menu, Tooltip } from '@mui/material';
+import { Button, Icon, IconButton, Menu, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import styled from 'styled-components';
 import PortudaoLogo from 'icons/portuDAO-logo.png';
 import spacing from 'theme/spacing';
@@ -12,6 +12,11 @@ import Dialog from '@mui/material/Dialog';
 import { useState } from 'react';
 import useWallet from 'hooks/useWallet';
 import WalletConnection from './WalletConnection';
+import MenuDrawer from './MenuDrawer';
+
+interface Props {
+  isMobile: boolean;
+}
 
 const MenuItem = styled(Typography)`
   width: 80px;
@@ -40,9 +45,10 @@ const StyledBox = styled(Box)`
   height: 52px;
 `;
 
-const StyledToolbar = styled(Toolbar)`
+const StyledToolbar = styled(Toolbar)<Props>`
   padding: 0 !important;
   margin: 0 !important;
+  justify-content: ${(p) => p.isMobile && 'space-between'};
 `;
 
 const StyledMenu = styled(Menu)`
@@ -73,6 +79,11 @@ export default function MainNavbar(): JSX.Element {
     setAnchorEl(null);
   };
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  console.log('isMobile', isMobile);
+
   return (
     <Container>
       <AppBar
@@ -82,69 +93,72 @@ export default function MainNavbar(): JSX.Element {
           backgroundColor: 'white',
         }}
       >
-        <StyledToolbar>
+        <StyledToolbar isMobile={isMobile}>
           <StyledLogoBox>
             <IconButton onClick={goToLanding}>
               <img src={PortudaoLogo} alt="" />
             </IconButton>
           </StyledLogoBox>
 
-          <Box style={{ marginRight: `${spacing.xxl}px` }}>
-            <Button variant="contained">
-              <MenuItem variant="body1" onClick={() => goToEvents()}>
-                Events
-              </MenuItem>
-            </Button>
-          </Box>
-
-          <Box style={{ flexGrow: 1 }}>
-            <Button variant="contained">
-              <MenuItem variant="body1" onClick={() => goToGallery()}>
-                Gallery
-              </MenuItem>
-            </Button>
-          </Box>
-
-          {!connected && (
-            <Tooltip title="Connect">
-              <Button variant="contained">
-                <Typography variant="body2" onClick={() => setOpenConnect(true)}>
-                  Connect
-                </Typography>
-              </Button>
-            </Tooltip>
-          )}
-
-          {connected && (
+          {isMobile ? (
+            <MenuDrawer setOpenConnect={setOpenConnect} />
+          ) : (
             <>
-              <StyledBox style={{ cursor: 'pointer' }} onClick={handleClickMenu}>
-                <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
-                  {/* @ts-ignore */}
-                  {`${publicAddress.substr(0, 4)} ... ${publicAddress.substr(
-                    publicAddress.length - 4,
-                    publicAddress.length
-                  )}
+              <Box style={{ marginRight: `${spacing.xxl}px` }}>
+                <Button variant="contained">
+                  <MenuItem variant="body1" onClick={() => goToEvents()}>
+                    Events
+                  </MenuItem>
+                </Button>
+              </Box>
+              <Box style={{ flexGrow: 1 }}>
+                <Button variant="contained">
+                  <MenuItem variant="body1" onClick={() => goToGallery()}>
+                    Gallery
+                  </MenuItem>
+                </Button>
+              </Box>
+              {!connected && (
+                <Tooltip title="Connect">
+                  <Button variant="contained">
+                    <Typography variant="body2" onClick={() => setOpenConnect(true)}>
+                      Connect
+                    </Typography>
+                  </Button>
+                </Tooltip>
+              )}
+              {connected && (
+                <>
+                  <StyledBox style={{ cursor: 'pointer' }} onClick={handleClickMenu}>
+                    <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
+                      {/* @ts-ignore */}
+                      {`${publicAddress.substr(0, 4)} ... ${publicAddress.substr(
+                        publicAddress.length - 4,
+                        publicAddress.length
+                      )}
                             `}
-                </Typography>
-              </StyledBox>
-              <StyledMenu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={openMenu}
-                onClose={handleCloseMenu}
-                MenuListProps={{
-                  'aria-labelledby': 'basic-button',
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    logout();
-                    handleCloseMenu();
-                  }}
-                >
-                  Logout
-                </MenuItem>
-              </StyledMenu>
+                    </Typography>
+                  </StyledBox>
+                  <StyledMenu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={openMenu}
+                    onClose={handleCloseMenu}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                  >
+                    <MenuItem
+                      onClick={() => {
+                        logout();
+                        handleCloseMenu();
+                      }}
+                    >
+                      Logout
+                    </MenuItem>
+                  </StyledMenu>
+                </>
+              )}{' '}
             </>
           )}
         </StyledToolbar>
