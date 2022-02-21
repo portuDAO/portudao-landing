@@ -6,7 +6,7 @@ import spacing from 'theme/spacing';
 import { useEffect, useState } from 'react';
 import getTokenTransactions from 'api/blackscout';
 import useWallet from 'hooks/useWallet';
-import { getToken } from 'api/poap';
+import { getToken, getTokens } from 'api/poap';
 import PoapList from 'components/Gallery/PoapList';
 
 const Container = styled(Box)`
@@ -26,22 +26,12 @@ export default function Landing(): JSX.Element {
   useEffect(() => {
     const getPOAPs = async () => {
       setIsLoading(true);
-      const tokenTransactions = await getTokenTransactions(publicAddress);
+      const tokens = await getTokens(publicAddress);
 
-      console.log('tokenTransactions', tokenTransactions);
-      if (tokenTransactions.result) {
+      console.log('tokens', tokens);
+      if (tokens) {
         // @ts-ignore
-        const poapTransactions = tokenTransactions.result.filter((tt) => {
-          if (tt.tokenName === 'POAP') {
-            return true;
-          }
-          return false;
-        });
-
-        console.log('poapTransactions', poapTransactions);
-
-        // @ts-ignore
-        const tokenIds = poapTransactions.map((tt) => tt.tokenID);
+        const tokenIds = tokens.map((token) => token.tokenId);
 
         console.log('Token ids', tokenIds);
 
@@ -57,21 +47,25 @@ export default function Landing(): JSX.Element {
         // @ts-ignore
         setPoaps(retrivedPoaps);
       }
+      setIsLoading(false);
     };
     if (connected) getPOAPs();
   }, [publicAddress]);
 
   return (
     <Container>
-      <Typography variant="h4" style={{ marginBottom: `${spacing.lg}px` }}>
-        {' '}
-        My Gallery{' '}
-      </Typography>
-      {isLoading && <CircularProgress />}
-      {!isLoading && poaps.length === 0 && (
-        <Typography variant="h6">No Poaps found on connected wallet.</Typography>
+      {poaps && (
+        <>
+          <Typography variant="h4" style={{ marginBottom: `${spacing.lg}px` }}>
+            My Gallery
+          </Typography>
+          {isLoading && <CircularProgress />}
+          {!isLoading && poaps.length === 0 && (
+            <Typography variant="h6">No Poaps found on connected wallet.</Typography>
+          )}
+          {!isLoading && poaps.length > 0 && <PoapList poaps={poaps} />}
+        </>
       )}
-      {!isLoading && poaps.length > 0 && <PoapList poaps={poaps} />}
     </Container>
   );
 }

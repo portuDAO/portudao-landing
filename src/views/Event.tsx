@@ -1,16 +1,15 @@
 import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { getEvent } from 'api/poap';
+import { getEvent, getEventPoaps } from 'api/poap';
 import styled from 'styled-components';
 import EventCard from 'components/Event/EventCard';
 import spacing from 'theme/spacing';
+import EventPoaps from 'components/Event/EventsPoaps';
 
 const Container = styled(Box)`
   min-height: calc(100vh - 168px);
   display: flex;
-  justify-content: center;
-  align-items: center;
   margin-right: ${spacing.xxl}px;
   margin-left: ${spacing.xxl}px;
   margin-top: ${spacing.xxl}px;
@@ -19,6 +18,7 @@ const Container = styled(Box)`
 
 export default function Event(): JSX.Element {
   const [event, setEvent] = useState(null);
+  const [eventPoaps, setEventPoaps] = useState([]);
   const { eventId } = useParams();
 
   useEffect(() => {
@@ -27,10 +27,24 @@ export default function Event(): JSX.Element {
       const res = await getEvent(eventId);
       if (res) {
         setEvent(res);
+        console.log('res id ', res);
+        const poaps = await getEventPoaps(res.id);
+        console.log('Event poaps', poaps);
+        setEventPoaps(poaps.tokens);
       }
     };
+
     fetchEvent();
   }, []);
 
-  return <Container>{event && <EventCard event={event} />}</Container>;
+  return (
+    <Container>
+      {event && (
+        <Box display="flex" flexDirection="column" width="100%">
+          <EventCard event={event} />
+          {eventPoaps && <EventPoaps rows={eventPoaps} />}
+        </Box>
+      )}
+    </Container>
+  );
 }

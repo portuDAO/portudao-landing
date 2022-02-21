@@ -8,18 +8,17 @@ import AvatarPlaceholder from 'icons/AvatarPlaceholder.png';
 import { AiOutlineCloseCircle, AiOutlineCheck } from 'react-icons/ai';
 
 const StyledCard = styled(Card)`
+  display: flex;
   background: #f7f7f8;
   border: 1px solid #f0f0f1;
   backdrop-filter: blur(20px);
   border-radius: 16px;
-  display: flex;
   padding: ${spacing.md}px;
   flex-direction: column;
 `;
 
 const Container = styled(Box)`
   display: flex;
-  width: 100%;
 `;
 
 // @ts-ignore
@@ -35,12 +34,13 @@ export default function NFTListCard({ event }) {
     virtual_event,
     private_event,
     image_url,
+    id,
   } = event;
 
   return (
     <Container>
       <Grid container spacing={4}>
-        <Grid key={event.fancy_id} item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid key={event.id} item xs={12} sm={12} md={6} lg={6} xl={6}>
           <StyledCard>
             <Typography variant="h5">{`${name}`}</Typography>
             <Typography variant="h6">{`${description}`}</Typography>

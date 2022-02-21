@@ -21,7 +21,6 @@ const StyledBox = styled(Box)`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${spacing.lg}px;
-  width: 100%;
 `;
 
 export default function Landing(): JSX.Element {
