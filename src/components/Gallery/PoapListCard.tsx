@@ -15,7 +15,9 @@ const StyledCard = styled(Card)`
   min-height: 230px;
 `;
 
-const StyledImg = styled('img')({});
+const StyledImg = styled('img')({
+  maxWidth: '100%',
+});
 
 // @ts-ignore
 export default function PoapListCard({ poap }) {

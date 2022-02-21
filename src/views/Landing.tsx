@@ -12,10 +12,14 @@ const Container = styled(Box)`
   align-items: center;
 `;
 
+const StyledImg = styled.img`
+  max-width: 350px !important;
+`;
+
 export default function Landing(): JSX.Element {
   return (
     <Container>
-      <img src={Portudao} alt="" />
+      <StyledImg src={Portudao} alt="" />
     </Container>
   );
 }

@@ -13,12 +13,15 @@ const Container = styled(Box)`
   margin-right: ${spacing.xxl}px;
   margin-left: ${spacing.xxl}px;
   margin-top: ${spacing.xxl}px;
+  margin-bottom: ${spacing.lg}px;
+  min-height: calc(100vh - 168px);
 `;
 
 const StyledBox = styled(Box)`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${spacing.lg}px;
+  width: 100%;
 `;
 
 export default function Landing(): JSX.Element {

@@ -15,6 +15,7 @@ const Container = styled(Box)`
   margin-right: ${spacing.xxl}px;
   margin-left: ${spacing.xxl}px;
   margin-top: ${spacing.xxl}px;
+  margin-bottom: ${spacing.lg}px;
 `;
 
 export default function Landing(): JSX.Element {

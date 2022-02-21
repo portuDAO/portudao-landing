@@ -27,7 +27,7 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
             }}
           >
             <ListItemText>
-              <Typography variant="h6">Landing</Typography>
+              <Typography variant="h6">Home</Typography>
             </ListItemText>
           </ListItem>
           <ListItem

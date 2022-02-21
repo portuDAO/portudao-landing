@@ -11,7 +11,7 @@ export default function NFTList({ events }) {
         // @ts-ignore
         // eslint-disable-next-line react/prop-types
         events.map((event) => (
-          <Grid key={event.fancy_id} item sm={12} md={6} lg={4} xl={4}>
+          <Grid key={event.fancy_id} item xs={12} sm={12} md={6} lg={4} xl={3}>
             <NFTListCard event={event} />
           </Grid>
         ))
