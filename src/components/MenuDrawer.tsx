@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Drawer, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useNavigate } from 'react-router';
+import useWallet from 'hooks/useWallet';
 
 interface Props {
   setOpenConnect: any;
@@ -11,6 +12,7 @@ interface Props {
 export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
   const [openDrawer, setOpenDrawer] = useState(false);
   const navigate = useNavigate();
+  const { connected, logout } = useWallet();
 
   const goToLanding = () => navigate('/');
   const goToEvents = () => navigate('/events');
@@ -60,6 +62,18 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
               <Typography variant="h6">Connect Wallet</Typography>
             </ListItemText>
           </ListItem>
+          {connected && (
+            <ListItem
+              onClick={() => {
+                logout();
+                setOpenDrawer(false);
+              }}
+            >
+              <ListItemText>
+                <Typography variant="h6">Logout</Typography>
+              </ListItemText>
+            </ListItem>
+          )}
         </List>
       </Drawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)}>

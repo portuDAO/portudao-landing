@@ -23,8 +23,8 @@ const MenuItem = styled(Typography)`
   cursor: pointer;
 `;
 
-const StyledLogoBox = styled(Box)`
-  margin-right: ${spacing.xxl}px;
+const StyledLogoBox = styled(Box)<Props>`
+  margin-right: ${(p) => (p.isMobile ? 0 : `${spacing.xxl}px`)};
   img {
     width: 60px;
   }
@@ -41,8 +41,8 @@ const StyledBox = styled(Box)`
   border-radius: 26px 26px 26px 26px !important;
   background: rgba(0, 1, 25, 0.03);
   color: black;
-  width: 200px;
-  height: 52px;
+  width: 150px;
+  height: 42px;
 `;
 
 const StyledToolbar = styled(Toolbar)<Props>`
@@ -94,14 +94,28 @@ export default function MainNavbar(): JSX.Element {
         }}
       >
         <StyledToolbar isMobile={isMobile}>
-          <StyledLogoBox>
+          <StyledLogoBox isMobile={isMobile}>
             <IconButton onClick={goToLanding}>
               <img src={PortudaoLogo} alt="" />
             </IconButton>
           </StyledLogoBox>
 
           {isMobile ? (
-            <MenuDrawer setOpenConnect={setOpenConnect} />
+            <>
+              {connected && (
+                <StyledBox style={{ cursor: 'pointer' }}>
+                  <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
+                    {/* @ts-ignore */}
+                    {`${publicAddress.substr(0, 4)} ... ${publicAddress.substr(
+                      publicAddress.length - 4,
+                      publicAddress.length
+                    )}
+                            `}
+                  </Typography>
+                </StyledBox>
+              )}
+              <MenuDrawer setOpenConnect={setOpenConnect} />
+            </>
           ) : (
             <>
               <Box style={{ marginRight: `${spacing.xxl}px` }}>
