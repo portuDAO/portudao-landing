@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { getEvent, getEventPoaps } from 'api/poap';
+import canClaim from 'api/event';
 import styled from 'styled-components';
 import EventCard from 'components/Event/EventCard';
 import spacing from 'theme/spacing';
@@ -18,6 +19,7 @@ const Container = styled(Box)`
 
 export default function Event(): JSX.Element {
   const [event, setEvent] = useState(null);
+  const [hasClaim, setHasClaim] = useState(false);
   const [eventPoaps, setEventPoaps] = useState([]);
   const { eventId } = useParams();
 
@@ -33,7 +35,12 @@ export default function Event(): JSX.Element {
         setEventPoaps(poaps.tokens);
       }
     };
-
+    const checkClaim = async () => {
+      // @ts-ignore
+      const res = await canClaim(eventId);
+      if (res) setHasClaim(res.links);
+    };
+    checkClaim();
     fetchEvent();
   }, []);
 
@@ -42,7 +49,8 @@ export default function Event(): JSX.Element {
       {event && (
         <Box display="flex" flexDirection="column" width="100%">
           <EventCard event={event} />
-          {eventPoaps && <EventPoaps rows={eventPoaps} />}
+          {/* @ts-ignore */}
+          <EventPoaps rows={eventPoaps} hasClaim={hasClaim} />
         </Box>
       )}
     </Container>

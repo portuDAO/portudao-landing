@@ -82,9 +82,10 @@ TablePaginationActions.propTypes = {
 
 interface Props {
   rows: any;
+  hasClaim: any;
 }
 
-export default function EventPoaps({ rows }: Props) {
+export default function EventPoaps({ rows, hasClaim }: Props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -106,71 +107,76 @@ export default function EventPoaps({ rows }: Props) {
 
   return (
     <Box display="flex" flexDirection="column" style={{ marginTop: `${spacing.lg}px` }}>
-      <Typography variant="h6">POAPs distributed</Typography>
+      <Typography variant="h6">POAPs distribution</Typography>
 
-      <TableContainer component={Paper} style={{ marginTop: `${spacing.lg}px` }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {tableHeaders.map((th) => (
-                <TableCell align="center">{th}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            )
-              // @ts-ignore
-              .map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell style={{ width: 160 }} align="center">
-                    {row.id}
-                  </TableCell>
-                  <TableCell style={{ width: 160 }} align="center">
-                    {`${row.owner.id.substr(0, 4)} ... ${row.owner.id.substr(
-                      row.owner.id.length - 4,
-                      row.owner.id.length
-                    )}`}
-                  </TableCell>
-                  <TableCell style={{ width: 160 }} align="center">
-                    {row.owner.tokensOwned}
-                  </TableCell>
-                  <TableCell style={{ width: 160 }} align="center">
-                    {row.transferCount}
-                  </TableCell>
-                </TableRow>
-              ))}
+      {hasClaim && <Typography variant="h6">Claim here!</Typography>}
+      {!hasClaim && <Typography variant="h6">No Poaps available to claim.</Typography>}
 
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
+      {rows && (
+        <TableContainer component={Paper} style={{ marginTop: `${spacing.lg}px` }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {tableHeaders.map((th) => (
+                  <TableCell align="center">{th}</TableCell>
+                ))}
               </TableRow>
-            )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                colSpan={3}
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    'aria-label': 'rows per page',
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {(rowsPerPage > 0
+                ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : rows
+              )
+                // @ts-ignore
+                .map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell style={{ width: 160 }} align="center">
+                      {row.id}
+                    </TableCell>
+                    <TableCell style={{ width: 160 }} align="center">
+                      {`${row.owner.id.substr(0, 4)} ... ${row.owner.id.substr(
+                        row.owner.id.length - 4,
+                        row.owner.id.length
+                      )}`}
+                    </TableCell>
+                    <TableCell style={{ width: 160 }} align="center">
+                      {row.owner.tokensOwned}
+                    </TableCell>
+                    <TableCell style={{ width: 160 }} align="center">
+                      {row.transferCount}
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                  colSpan={3}
+                  count={rows.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      'aria-label': 'rows per page',
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      )}
     </Box>
   );
 }
