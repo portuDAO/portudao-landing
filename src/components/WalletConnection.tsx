@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import { useSnackbar } from 'notistack';
 import { ReactComponent as Metamask } from 'icons/metamask.svg';
 import { ReactComponent as Coinbase } from 'icons/coinbase.svg';
-import useWallet from 'hooks/useWallet';
-import connect from 'wallets';
+import useAuth from 'hooks/useAuth';
+import { connect, signMessage } from 'wallets';
+import getUserNonce from 'api/user';
 
 const StyledCard = styled(Box)`
   margin: ${spacing.lg}px;
@@ -28,9 +29,9 @@ interface Props {
 export default function WalletConnection({ handleClose }: Props): JSX.Element {
   const { enqueueSnackbar } = useSnackbar();
   // @ts-ignore
-  const { setWallet } = useWallet();
+  const { login, setProvider } = useAuth();
 
-  const connectTo = async (provider: string) => {
+  const signIn = async (provider: string) => {
     try {
       const { accounts, error } = await connect(provider);
       if (error) {
@@ -43,13 +44,29 @@ export default function WalletConnection({ handleClose }: Props): JSX.Element {
         );
         return;
       }
-      setWallet(accounts[0]);
-      handleClose();
+      const res = await getUserNonce({ publicAddress: accounts[0] });
+
+      if (res && res.nonce) {
+        console.log('User nonce', res.nonce);
+        const { nonce } = res;
+        const message = await signMessage(nonce, provider);
+        await login({ publicAddress: accounts[0], message });
+        handleClose();
+        setProvider(provider);
+        global.localStorage.setItem('walletProvider', provider);
+        enqueueSnackbar(
+          // @ts-ignore
+          `Success, logged in!`,
+          {
+            variant: 'success',
+          }
+        );
+      }
     } catch (error) {
-      console.log('Connect error', error);
+      console.log('Sign in error', error);
       enqueueSnackbar(
         // @ts-ignore
-        error?.response?.data?.message || `Failed wallet connection in!`,
+        error?.response?.data?.message || `Failed log in!`,
         {
           variant: 'error',
         }
@@ -60,10 +77,10 @@ export default function WalletConnection({ handleClose }: Props): JSX.Element {
   return (
     <StyledCard>
       <Typography variant="body1">Connect wallet </Typography>
-      <Button variant="outlined" fullWidth onClick={() => connectTo('metamask')}>
+      <Button variant="outlined" fullWidth onClick={() => signIn('metamask')}>
         <Metamask />
       </Button>
-      <Button variant="outlined" fullWidth onClick={() => connectTo('coinbase')}>
+      <Button variant="outlined" fullWidth onClick={() => signIn('coinbase')}>
         <Coinbase />
       </Button>
     </StyledCard>

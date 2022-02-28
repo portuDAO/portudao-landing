@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { getEvent, getEventPoaps } from 'api/poap';
-import canClaim from 'api/event';
+import { canClaim } from 'api/event';
 import styled from 'styled-components';
 import EventCard from 'components/Event/EventCard';
 import spacing from 'theme/spacing';
@@ -50,7 +50,7 @@ export default function Event(): JSX.Element {
         <Box display="flex" flexDirection="column" width="100%">
           <EventCard event={event} />
           {/* @ts-ignore */}
-          <EventPoaps rows={eventPoaps} hasClaim={hasClaim} />
+          <EventPoaps rows={eventPoaps} hasClaim={hasClaim} eventId={eventId} />
         </Box>
       )}
     </Container>

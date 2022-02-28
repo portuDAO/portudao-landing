@@ -4,13 +4,13 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { Button, Icon, IconButton, Menu, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Button, IconButton, Menu, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import styled from 'styled-components';
 import PortudaoLogo from 'icons/portuDAO-logo.png';
 import spacing from 'theme/spacing';
 import Dialog from '@mui/material/Dialog';
 import { useState } from 'react';
-import useWallet from 'hooks/useWallet';
+import useAuth from 'hooks/useAuth';
 import WalletConnection from './WalletConnection';
 import MenuDrawer from './MenuDrawer';
 
@@ -41,8 +41,8 @@ const StyledBox = styled(Box)`
   border-radius: 26px 26px 26px 26px !important;
   background: rgba(0, 1, 25, 0.03);
   color: black;
-  width: 150px;
-  height: 42px;
+  width: 200px;
+  height: 52px;
 `;
 
 const StyledToolbar = styled(Toolbar)<Props>`
@@ -63,7 +63,7 @@ export default function MainNavbar(): JSX.Element {
   const openMenu = Boolean(anchorEl);
 
   // @ts-ignore
-  const { connected, publicAddress, logout } = useWallet();
+  const { isAuthenticated, publicAddress, logout, user } = useAuth();
 
   const goToLanding = () => navigate('/');
   const goToEvents = () => navigate('/events');
@@ -102,7 +102,7 @@ export default function MainNavbar(): JSX.Element {
 
           {isMobile ? (
             <>
-              {connected && (
+              {isAuthenticated && (
                 <StyledBox style={{ cursor: 'pointer' }}>
                   <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
                     {/* @ts-ignore */}
@@ -132,7 +132,7 @@ export default function MainNavbar(): JSX.Element {
                   </MenuItem>
                 </Button>
               </Box>
-              {!connected && (
+              {!isAuthenticated && (
                 <Tooltip title="Connect">
                   <Button variant="contained">
                     <Typography variant="body2" onClick={() => setOpenConnect(true)}>
@@ -141,9 +141,9 @@ export default function MainNavbar(): JSX.Element {
                   </Button>
                 </Tooltip>
               )}
-              {connected && (
+              {isAuthenticated && (
                 <>
-                  <StyledBox style={{ cursor: 'pointer' }} onClick={handleClickMenu}>
+                  <StyledBox style={{ cursor: 'pointer' }}>
                     <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
                       {/* @ts-ignore */}
                       {`${publicAddress.substr(0, 4)} ... ${publicAddress.substr(
@@ -151,6 +151,16 @@ export default function MainNavbar(): JSX.Element {
                         publicAddress.length
                       )}
                             `}
+                    </Typography>
+                  </StyledBox>
+                  <StyledBox
+                    style={{ marginLeft: `${spacing.md}px`, cursor: 'pointer' }}
+                    onClick={handleClickMenu}
+                  >
+                    <Avatar style={{ background: '#3e7cb1', height: '52px', width: '52px' }} />
+                    <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
+                      {/* @ts-ignore */}
+                      {`${user.firstName} ${user.lastName}`}
                     </Typography>
                   </StyledBox>
                   <StyledMenu

@@ -15,8 +15,9 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Grid, TableHead, Typography } from '@mui/material';
+import { TableHead, Typography, Tooltip, Button } from '@mui/material';
 import spacing from 'theme/spacing';
+import { claimPoap } from 'api/event';
 
 // @ts-ignore
 function TablePaginationActions(props) {
@@ -83,9 +84,10 @@ TablePaginationActions.propTypes = {
 interface Props {
   rows: any;
   hasClaim: any;
+  eventId: any;
 }
 
-export default function EventPoaps({ rows, hasClaim }: Props) {
+export default function EventPoaps({ rows, hasClaim, eventId }: Props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -109,7 +111,25 @@ export default function EventPoaps({ rows, hasClaim }: Props) {
     <Box display="flex" flexDirection="column" style={{ marginTop: `${spacing.lg}px` }}>
       <Typography variant="h6">POAPs distribution</Typography>
 
-      {hasClaim && <Typography variant="h6">Claim here!</Typography>}
+      {hasClaim && (
+        <>
+          <Typography variant="h6">Claim here!</Typography>
+          <Tooltip title="Connect">
+            <Button
+              variant="contained"
+              onClick={async () => {
+                const res = await claimPoap(eventId);
+                if (res) {
+                  window.open(res.link, '_blank');
+                }
+              }}
+            >
+              <Typography variant="body2">Claim</Typography>
+            </Button>
+          </Tooltip>
+        </>
+      )}
+
       {!hasClaim && <Typography variant="h6">No Poaps available to claim.</Typography>}
 
       {rows && (

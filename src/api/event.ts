@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const canClaim = async (eventId: string) => {
-  const path = `http://apiportudao.ddns.net:8080/api/event/${eventId}/canClaim`;
+  const path = `https://apidao.ddns.net/api/event/${eventId}/canClaim`;
   const res = await axios.get(path);
   if (res) {
     console.log('Can  claim service:', res);
@@ -11,4 +11,14 @@ const canClaim = async (eventId: string) => {
   return false;
 };
 
-export default canClaim;
+const claimPoap = async (eventId: string) => {
+  const path = `https://apidao.ddns.net/api/event/${eventId}/claim`;
+  const res = await axios.get(path);
+  if (res) {
+    console.log('Poap claim service:', res);
+    return res.data;
+  }
+  return false;
+};
+
+export { canClaim, claimPoap };

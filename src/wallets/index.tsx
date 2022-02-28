@@ -16,4 +16,25 @@ const connect = async (providerName: string) => {
   }
 };
 
-export default connect;
+// eslint-disable-next-line consistent-return
+const signMessage = async (nonce: string, providerName: string) => {
+  try {
+    const chosenProvider = getProvider(providerName);
+    console.log('chosenProvider', chosenProvider);
+
+    const provider =
+      providerName === 'metamask'
+        ? new ethers.providers.Web3Provider(chosenProvider)
+        : new ethers.providers.Web3Provider(chosenProvider);
+
+    const signer = provider.getSigner();
+    const message = await signer.signMessage(`I am signing my one-time nonce: ${nonce}`);
+    console.log('message', message);
+
+    return message;
+  } catch (error) {
+    console.log('Error signing message', error);
+  }
+};
+
+export { connect, signMessage };

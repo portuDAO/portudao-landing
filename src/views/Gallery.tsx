@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import spacing from 'theme/spacing';
 
 import { useEffect, useState } from 'react';
-import getTokenTransactions from 'api/blackscout';
-import useWallet from 'hooks/useWallet';
+import useWallet from 'hooks/useAuth';
 import { getToken, getTokens } from 'api/poap';
 import PoapList from 'components/Gallery/PoapList';
 
@@ -19,7 +18,7 @@ const Container = styled(Box)`
 `;
 
 export default function Landing(): JSX.Element {
-  const { publicAddress, connected } = useWallet();
+  const { publicAddress, isAuthenticated } = useWallet();
   const [poaps, setPoaps] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,7 +48,7 @@ export default function Landing(): JSX.Element {
       }
       setIsLoading(false);
     };
-    if (connected) getPOAPs();
+    if (isAuthenticated) getPOAPs();
   }, [publicAddress]);
 
   return (
