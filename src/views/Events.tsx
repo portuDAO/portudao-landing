@@ -12,9 +12,7 @@ const Container = styled(Box)`
   flex-direction: column;
   margin-right: ${spacing.xxl}px;
   margin-left: ${spacing.xxl}px;
-  margin-top: ${spacing.xxl}px;
-  margin-bottom: ${spacing.lg}px;
-  min-height: calc(100vh - 168px);
+  min-height: calc(100vh - 148px);
 `;
 
 const StyledBox = styled(Box)`

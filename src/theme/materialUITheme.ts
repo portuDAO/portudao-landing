@@ -8,7 +8,7 @@ const theme = createTheme({
     fontFamily: ['apple-system', 'BlinkMacSystemFont', 'sans-serif'].join(','),
   },
   palette: {
-    primary: { main: '#3E7CB1;' },
+    primary: { main: '#DF4C2A;' },
   },
   components: {
     MuiButton: {

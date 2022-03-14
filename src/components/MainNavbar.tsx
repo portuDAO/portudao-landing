@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Button, IconButton, Menu, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import styled from 'styled-components';
-import PortudaoLogo from 'icons/portuDAO-logo.png';
+import PortudaoLogo from 'icons/logo_final.png';
 import spacing from 'theme/spacing';
 import Dialog from '@mui/material/Dialog';
 import { useState } from 'react';
@@ -26,14 +26,13 @@ const MenuItem = styled(Typography)`
 const StyledLogoBox = styled(Box)<Props>`
   margin-right: ${(p) => (p.isMobile ? 0 : `${spacing.xxl}px`)};
   img {
-    width: 60px;
+    width: 130px;
   }
 `;
 
 const Container = styled(Box)`
   margin-right: ${spacing.xxl}px;
   margin-left: ${spacing.xxl}px;
-  margin-top: ${spacing.lg}px;
 `;
 
 const StyledBox = styled(Box)`
@@ -157,7 +156,7 @@ export default function MainNavbar(): JSX.Element {
                     style={{ marginLeft: `${spacing.md}px`, cursor: 'pointer' }}
                     onClick={handleClickMenu}
                   >
-                    <Avatar style={{ background: '#3e7cb1', height: '52px', width: '52px' }} />
+                    <Avatar style={{ background: '#DF4C2A', height: '52px', width: '52px' }} />
                     <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
                       {/* @ts-ignore */}
                       {`${user.firstName} ${user.lastName}`}
