@@ -37,7 +37,7 @@ const Container = styled(Box)`
 
 const StyledBox = styled(Box)`
   display: flex;
-  border-radius: 26px 26px 26px 26px !important;
+  border-radius: 16px !important;
   background: rgba(0, 1, 25, 0.03);
   color: black;
   width: 200px;
@@ -156,7 +156,16 @@ export default function MainNavbar(): JSX.Element {
                     style={{ marginLeft: `${spacing.md}px`, cursor: 'pointer' }}
                     onClick={handleClickMenu}
                   >
-                    <Avatar style={{ background: '#DF4C2A', height: '52px', width: '52px' }} />
+                    <Avatar
+                      style={{
+                        background: '#DF4C2A',
+                        height: '52px',
+                        width: '52px',
+                        borderRadius: '16px',
+                        boxShadow:
+                          '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+                      }}
+                    />
                     <Typography variant="body2" style={{ margin: 'auto', fontWeight: 'bold' }}>
                       {/* @ts-ignore */}
                       {`${user.firstName} ${user.lastName}`}
