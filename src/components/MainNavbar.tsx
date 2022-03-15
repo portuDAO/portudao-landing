@@ -120,14 +120,14 @@ export default function MainNavbar(): JSX.Element {
               <Box style={{ marginRight: `${spacing.xxl}px` }}>
                 <Button variant="contained">
                   <MenuItem variant="body1" onClick={() => goToEvents()}>
-                    Events
+                    <Typography>Events</Typography>
                   </MenuItem>
                 </Button>
               </Box>
               <Box style={{ flexGrow: 1 }}>
                 <Button variant="contained">
                   <MenuItem variant="body1" onClick={() => goToGallery()}>
-                    Gallery
+                    <Typography>Gallery</Typography>
                   </MenuItem>
                 </Button>
               </Box>

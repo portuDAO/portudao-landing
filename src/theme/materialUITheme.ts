@@ -5,7 +5,7 @@ const theme = createTheme({
     borderRadius: 0,
   },
   typography: {
-    fontFamily: ['apple-system', 'BlinkMacSystemFont', 'sans-serif'].join(','),
+    fontFamily: ['Poppins', 'BlinkMacSystemFont', 'sans-serif'].join(','),
   },
   palette: {
     primary: { main: '#DF4C2A;' },
@@ -14,8 +14,10 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          height: '40px',
-          fontFamily: 'SF UI Text',
+          height: '50px',
+          fontFamily: 'Poppins',
+          borderRadius: '16px',
+          width: '150px',
         },
       },
     },
