@@ -120,7 +120,7 @@ export default function EventPoaps({ rows, hasClaim, eventId }: Props) {
               onClick={async () => {
                 const res = await claimPoap(eventId);
                 if (res) {
-                  window.open(res.link, '_blank');
+                  window.location.replace(res.link);
                 }
               }}
             >
