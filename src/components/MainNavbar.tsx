@@ -66,6 +66,7 @@ export default function MainNavbar(): JSX.Element {
 
   const goToLanding = () => navigate('/');
   const goToEvents = () => navigate('/events');
+  const goToMembership = () => navigate('/membership');
   const goToGallery = () => navigate('/gallery');
 
   const handleClose = () => setOpenConnect(false);
@@ -122,6 +123,11 @@ export default function MainNavbar(): JSX.Element {
                   <MenuItem variant="body1" onClick={() => goToEvents()}>
                     <Typography>Events</Typography>
                   </MenuItem>
+                </Button>
+              </Box>
+              <Box style={{ marginRight: `${spacing.xxl}px` }}>
+                <Button variant="contained" onClick={() => goToMembership()}>
+                  <Typography>Membership</Typography>
                 </Button>
               </Box>
               <Box style={{ flexGrow: 1 }}>

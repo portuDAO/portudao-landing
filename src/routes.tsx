@@ -15,6 +15,7 @@ const Loadable = (Component) => (props) =>
 const Landing = Loadable(lazy(() => import('views/Landing')));
 const Events = Loadable(lazy(() => import('views/Events')));
 const Event = Loadable(lazy(() => import('views/Event')));
+const Membership = Loadable(lazy(() => import('views/Membership')));
 const Gallery = Loadable(lazy(() => import('views/Gallery')));
 
 const routes: RouteObject[] = [
@@ -29,6 +30,10 @@ const routes: RouteObject[] = [
       {
         path: '/events',
         element: <Events />,
+      },
+      {
+        path: '/membership',
+        element: <Membership />,
       },
       {
         path: '/event/:eventId',
