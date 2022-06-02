@@ -98,7 +98,7 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialAuthState);
 
-  const apiPath = 'https://apidao.ddns.net';
+  const apiPath = process.env.REACT_APP_API_HOSTNAME;
 
   // @ts-ignore
   const login = async (params) => {

@@ -66,7 +66,7 @@ export default function WalletConnection({ handleClose }: Props): JSX.Element {
       console.log('Sign in error', error);
       enqueueSnackbar(
         // @ts-ignore
-        error?.response?.data?.message || `Failed log in!`,
+        error?.response?.data?.message || `Failed to log in!`,
         {
           variant: 'error',
         }

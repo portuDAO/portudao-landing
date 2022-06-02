@@ -1,7 +1,7 @@
 // libraries
 import axios from 'axios';
 
-const path = 'https://apidao.ddns.net/api/user';
+const path = `${process.env.REACT_APP_API_HOSTNAME}/api/user`;
 
 const getUserNonce = async (params: any) => {
   const res = await axios.get(`${path}/nonce?publicAddress=${params.publicAddress}`);

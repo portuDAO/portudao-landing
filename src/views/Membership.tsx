@@ -19,15 +19,18 @@ const Container = styled(Box)`
 export default function Membership(): JSX.Element {
   const { provider, publicAddress } = useAuth();
 
-  const mintNFT = async (sig: string, nonce: string) => {
-    const res = await mint(provider, publicAddress, sig, nonce);
+  const mintNFT = async (signature: string, message: string) => {
+    const res = await mint(signature, message);
+    console.log(res);
   };
 
   const fetchSignature = async () => {
-    const res = await getNonceSignature();
+    const res = await getNonceSignature('metamask');
     if (res) {
-      const { signature, nonce } = res;
-      await mintNFT(signature, nonce);
+      console.log('res', res);
+      const { sig } = res;
+      const msg = '1653469595976';
+      await mintNFT(sig, msg);
     }
   };
 
