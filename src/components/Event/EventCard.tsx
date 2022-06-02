@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Box, Card, Typography, Rating, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import spacing from 'theme/spacing';
-import { useNavigate } from 'react-router-dom';
-import AvatarPlaceholder from 'icons/AvatarPlaceholder.png';
-import { AiOutlineCloseCircle, AiOutlineCheck } from 'react-icons/ai';
+import { Box, Card, Typography, Grid } from "@mui/material"
+import { styled } from "@mui/material/styles"
+import spacing from "theme/spacing"
+import { AiOutlineCloseCircle, AiOutlineCheck } from "react-icons/ai"
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -15,11 +13,11 @@ const StyledCard = styled(Card)`
   border-radius: 16px;
   padding: ${spacing.md}px;
   flex-direction: column;
-`;
+`
 
 const Container = styled(Box)`
   display: flex;
-`;
+`
 
 // @ts-ignore
 export default function NFTListCard({ event }) {
@@ -35,7 +33,7 @@ export default function NFTListCard({ event }) {
     private_event,
     image_url,
     id,
-  } = event;
+  } = event
 
   return (
     <Container>
@@ -44,7 +42,11 @@ export default function NFTListCard({ event }) {
           <StyledCard>
             <Typography variant="h5">{`${name}`}</Typography>
             <Typography variant="h6">{`${description}`}</Typography>
-            <img src={image_url} alt="" style={{ maxWidth: '350px', borderRadius: '12px' }} />
+            <img
+              src={image_url}
+              alt=""
+              style={{ maxWidth: "350px", borderRadius: "12px" }}
+            />
           </StyledCard>
         </Grid>
         <Grid key={event.fancy_id} item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -57,8 +59,12 @@ export default function NFTListCard({ event }) {
               <Typography variant="h5">Virtual Event</Typography>
               <AiOutlineCheck />
             </Box>
-            <Box display="flex" justify-content="space-between" alignItems="center">
-              <Typography variant="h5" style={{ color: 'black' }}>
+            <Box
+              display="flex"
+              justify-content="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h5" style={{ color: "black" }}>
                 Private Event
               </Typography>
               <AiOutlineCloseCircle />
@@ -67,5 +73,5 @@ export default function NFTListCard({ event }) {
         </Grid>
       </Grid>
     </Container>
-  );
+  )
 }

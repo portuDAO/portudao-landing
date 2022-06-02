@@ -1,10 +1,15 @@
-import { Box, Button } from '@mui/material';
-import styled from 'styled-components';
-import spacing from 'theme/spacing';
-import getNonceSignature from 'api/membership';
-import mint from 'contracts/membership';
-import useAuth from 'hooks/useAuth';
-import approve from 'contracts/usdc';
+import { Box, Button } from "@mui/material"
+import styled from "styled-components"
+import { ethers } from "ethers"
+import spacing from "theme/spacing"
+import getNonceSignature from "api/membership"
+import mint from "contracts/membership"
+import getProvider from "wallets/utils"
+import approve from "contracts/usdc"
+import { useState, useEffect } from "react"
+import { getContract } from "utils"
+import { membershipContract } from "config"
+import { ERC20_ABI } from "config/abi/erc20"
 
 const Container = styled(Box)`
   display: flex;
@@ -14,38 +19,70 @@ const Container = styled(Box)`
   margin-right: ${spacing.xxl}px;
   margin-left: ${spacing.xxl}px;
   min-height: calc(100vh - 148px);
-`;
+`
 
 export default function Membership(): JSX.Element {
-  const { provider, publicAddress } = useAuth();
+  const [tokenApproved, setTokenApproved] = useState(false)
+  const [pendingStatus, setPendingStatus] = useState(true)
+
+  const checkAllowance = async () => {
+    const chosenProvider = getProvider("metamask")
+    const provider = new ethers.providers.Web3Provider(chosenProvider)
+    const signer = provider.getSigner()
+    const memberShipContract = getContract(
+      membershipContract.feeAddress,
+      ERC20_ABI,
+      signer
+    )
+    // console.log('Contract', memberShipContract);
+    const walletAddress = await signer.getAddress()
+    // console.log('Address:', walletAddress);
+    const allowance = await memberShipContract.allowance(
+      walletAddress,
+      membershipContract.address
+    )
+
+    if (allowance >= membershipContract.allowance) {
+      setTokenApproved(true)
+      setPendingStatus(false)
+    }
+  }
+
+  useEffect(() => {
+    checkAllowance()
+  })
 
   const mintNFT = async (signature: string, message: string) => {
-    const res = await mint(signature, message);
-    console.log(res);
-  };
+    await mint(signature, message)
+    // console.log(res);
+  }
 
   const fetchSignature = async () => {
-    const res = await getNonceSignature('metamask');
+    const timestamp = Date.now()
+    const msg = timestamp.toString()
+    const res = await getNonceSignature(msg, "metamask")
     if (res) {
-      console.log('res', res);
-      const { sig } = res;
-      const msg = '1653469595976';
-      await mintNFT(sig, msg);
+      const { sig } = res
+      await mintNFT(sig, msg)
     }
-  };
+  }
 
   const approveToken = async () => {
-    const res = await approve();
-  };
+    await approve()
+  }
 
   return (
     <Container>
-      <Button variant="contained" onClick={approveToken}>
-        APPROVE TOKEN
-      </Button>
-      <Button variant="contained" onClick={fetchSignature}>
-        MINT NFT
-      </Button>
+      {!pendingStatus &&
+        (!tokenApproved ? (
+          <Button variant="contained" onClick={approveToken}>
+            APPROVE TOKEN
+          </Button>
+        ) : (
+          <Button variant="contained" onClick={fetchSignature}>
+            MINT NFT
+          </Button>
+        ))}
     </Container>
-  );
+  )
 }

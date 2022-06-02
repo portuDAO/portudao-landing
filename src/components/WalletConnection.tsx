@@ -1,12 +1,12 @@
-import { Box, Button, Typography } from '@mui/material';
-import spacing from 'theme/spacing';
-import styled from 'styled-components';
-import { useSnackbar } from 'notistack';
-import { ReactComponent as Metamask } from 'icons/metamask.svg';
-import { ReactComponent as Coinbase } from 'icons/coinbase.svg';
-import useAuth from 'hooks/useAuth';
-import { connect, signMessage } from 'wallets';
-import getUserNonce from 'api/user';
+import { Box, Button, Typography } from "@mui/material"
+import spacing from "theme/spacing"
+import styled from "styled-components"
+import { useSnackbar } from "notistack"
+import { ReactComponent as Metamask } from "icons/metamask.svg"
+import { ReactComponent as Coinbase } from "icons/coinbase.svg"
+import useAuth from "hooks/useAuth"
+import { connect, signMessage } from "wallets"
+import getUserNonce from "api/user"
 
 const StyledCard = styled(Box)`
   margin: ${spacing.lg}px;
@@ -20,69 +20,70 @@ const StyledCard = styled(Box)`
     height: 80px !important;
     border: 1px solid #e1e1e1;
   }
-`;
+`
 
 interface Props {
-  handleClose: any;
+  handleClose: any
 }
 
 export default function WalletConnection({ handleClose }: Props): JSX.Element {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar()
   // @ts-ignore
-  const { login, setProvider } = useAuth();
+  const { login, setProvider } = useAuth()
 
   const signIn = async (provider: string) => {
     try {
-      const { accounts, error } = await connect(provider);
+      const { accounts, error } = await connect(provider)
       if (error) {
         enqueueSnackbar(
           // @ts-ignore
           `No wallet provider detected. Please install.`,
           {
-            variant: 'error',
+            variant: "error",
           }
-        );
-        return;
+        )
+        return
       }
-      const res = await getUserNonce({ publicAddress: accounts[0] });
+      const res = await getUserNonce({ publicAddress: accounts[0] })
 
       if (res && res.nonce) {
-        console.log('User nonce', res.nonce);
-        const { nonce } = res;
-        const message = await signMessage(nonce, provider);
-        await login({ publicAddress: accounts[0], message });
-        handleClose();
-        setProvider(provider);
-        global.localStorage.setItem('walletProvider', provider);
+        // console.log('User nonce', res.nonce);
+        const { nonce } = res
+        const message = await signMessage(nonce, provider)
+        // TODO: Login bug
+        await login({ publicAddress: accounts[0], message })
+        handleClose()
+        setProvider(provider)
+        global.localStorage.setItem("walletProvider", provider)
         enqueueSnackbar(
           // @ts-ignore
           `Success, logged in!`,
           {
-            variant: 'success',
+            variant: "success",
           }
-        );
+        )
       }
     } catch (error) {
-      console.log('Sign in error', error);
+      // console.log('Sign in error', error);
       enqueueSnackbar(
         // @ts-ignore
         error?.response?.data?.message || `Failed to log in!`,
         {
-          variant: 'error',
+          variant: "error",
         }
-      );
+      )
     }
-  };
+  }
 
   return (
     <StyledCard>
-      <Typography variant="body1">Connect wallet </Typography>
-      <Button variant="outlined" fullWidth onClick={() => signIn('metamask')}>
+      <Typography variant="body1">Connect wallet</Typography>
+      <Button variant="outlined" fullWidth onClick={() => signIn("metamask")}>
         <Metamask />
       </Button>
-      <Button variant="outlined" fullWidth onClick={() => signIn('coinbase')}>
+      <Button variant="outlined" fullWidth onClick={() => signIn("coinbase")}>
         <Coinbase />
       </Button>
     </StyledCard>
-  );
+  )
 }

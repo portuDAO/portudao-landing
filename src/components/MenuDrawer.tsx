@@ -1,22 +1,29 @@
-import { useState } from 'react';
-import { Drawer, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material';
-import { AiOutlineMenu } from 'react-icons/ai';
-import { useNavigate } from 'react-router';
-import useAuth from 'hooks/useAuth';
+import { useState } from "react"
+import {
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material"
+import { AiOutlineMenu } from "react-icons/ai"
+import { useNavigate } from "react-router"
+import useAuth from "hooks/useAuth"
 
 interface Props {
-  setOpenConnect: any;
+  setOpenConnect: any
 }
 
 // @ts-ignore
 export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const [openDrawer, setOpenDrawer] = useState(false)
+  const navigate = useNavigate()
+  const { isAuthenticated, logout } = useAuth()
 
-  const goToLanding = () => navigate('/');
-  const goToEvents = () => navigate('/events');
-  const goToGallery = () => navigate('/gallery');
+  const goToLanding = () => navigate("/")
+  const goToEvents = () => navigate("/events")
+  const goToGallery = () => navigate("/gallery")
 
   return (
     <>
@@ -24,8 +31,8 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
         <List>
           <ListItem
             onClick={() => {
-              goToLanding();
-              setOpenDrawer(false);
+              goToLanding()
+              setOpenDrawer(false)
             }}
           >
             <ListItemText>
@@ -34,8 +41,8 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
           </ListItem>
           <ListItem
             onClick={() => {
-              goToEvents();
-              setOpenDrawer(false);
+              goToEvents()
+              setOpenDrawer(false)
             }}
           >
             <ListItemText>
@@ -44,8 +51,8 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
           </ListItem>
           <ListItem
             onClick={() => {
-              goToGallery();
-              setOpenDrawer(false);
+              goToGallery()
+              setOpenDrawer(false)
             }}
           >
             <ListItemText>
@@ -54,8 +61,8 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
           </ListItem>
           <ListItem
             onClick={() => {
-              setOpenConnect(true);
-              setOpenDrawer(false);
+              setOpenConnect(true)
+              setOpenDrawer(false)
             }}
           >
             <ListItemText>
@@ -65,8 +72,8 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
           {isAuthenticated && (
             <ListItem
               onClick={() => {
-                logout();
-                setOpenDrawer(false);
+                logout()
+                setOpenDrawer(false)
               }}
             >
               <ListItemText>
@@ -80,5 +87,5 @@ export default function MenuDrawer({ setOpenConnect }: Props): JSX.Element {
         <AiOutlineMenu />
       </IconButton>
     </>
-  );
+  )
 }
