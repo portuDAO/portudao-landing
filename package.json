@@ -43,7 +43,7 @@
     "lodash": "^4.17.21"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "cp CNAME build/CNAME && gh-pages -d build",
     "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
