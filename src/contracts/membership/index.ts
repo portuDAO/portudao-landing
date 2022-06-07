@@ -1,38 +1,54 @@
-import { createAlchemyWeb3 } from '@alch/alchemy-web3';
-import membershipABI from 'contracts/membership/membershipAbi.json';
+import { createAlchemyWeb3 } from "@alch/alchemy-web3"
+import getProvider from "wallets/utils"
+import { ethers } from "ethers"
+import { membershipContract } from "config"
 
-const membershipAddress = '0x8e68c81ba9e3264e236b6d2273f601b385baa7b3';
-const ALCHEMY_API_KEY = 'https://eth-goerli.alchemyapi.io/v2/M1NeZMgxHETfrPflwiAGtiaMwn2bKMmX';
-const web3 = createAlchemyWeb3(ALCHEMY_API_KEY);
+const ALCHEMY_API_KEY =
+  "https://eth-goerli.alchemyapi.io/v2/M1NeZMgxHETfrPflwiAGtiaMwn2bKMmX"
+const web3 = createAlchemyWeb3(ALCHEMY_API_KEY)
 
-const MembershipContract = new web3.eth.Contract(
-  // @ts-ignore
-  membershipABI.abi,
-  membershipAddress
-);
-
-const mint = async (provider: any, address: string, signature: string, nonce: string) => {
+const mint = async (signature: string, message: string) => {
   try {
-    console.log('Provider', provider);
-    console.log('MembershipContract', MembershipContract);
+    const MembershipContract = new web3.eth.Contract(
+      // @ts-ignore
+      membershipContract.abi,
+      membershipContract.address
+    )
+
+    // console.log('MembershipContract', MembershipContract);
+
+    const providerName = "metamask"
+    const chosenProvider = getProvider(providerName)
+    const provider =
+      providerName === "metamask"
+        ? new ethers.providers.Web3Provider(chosenProvider)
+        : new ethers.providers.Web3Provider(chosenProvider)
+    // console.log('Provider', provider);
+    const signer = provider.getSigner()
+    const walletAddress = await signer.getAddress()
+    // console.log('walletAddress', walletAddress);
+
     // set up transaction parameters
     const transactionParameters = {
-      to: membershipAddress, // Required except during contract publications.
-      from: address, // must match user's active address.
-      data: MembershipContract.methods.mint(address, signature, nonce).encodeABI(),
-    };
+      to: membershipContract.address,
+      from: walletAddress,
+      gas: ethers.utils.hexlify(450000),
+      data: MembershipContract.methods
+        .mint(walletAddress, signature, message)
+        .encodeABI(),
+    }
 
-    // @ts-ignore
-    const txHash = await provider.request({
-      method: 'eth_sendTransaction',
-      params: [transactionParameters],
-    });
-
-    return txHash;
+    await chosenProvider
+      .request({
+        method: "eth_sendTransaction",
+        params: [transactionParameters],
+      })
+      .catch((error: any) => {
+        console.warn("error", error)
+      })
   } catch (error) {
-    console.log('Membership mint error', error);
-    return false;
+    console.warn("Membership mint error", error)
   }
-};
+}
 
-export default mint;
+export default mint

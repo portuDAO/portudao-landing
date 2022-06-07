@@ -1,5 +1,5 @@
-import { Grid } from '@mui/material';
-import NFTListCard from './NFTListCard';
+import { Grid } from "@mui/material"
+import NFTListCard from "./NFTListCard"
 
 // @ts-ignore
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -17,5 +17,5 @@ export default function NFTList({ events }) {
         ))
       }
     </Grid>
-  );
+  )
 }

@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Box, Card, Typography, Rating } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import spacing from 'theme/spacing';
-import { useNavigate } from 'react-router-dom';
-import AvatarPlaceholder from 'icons/AvatarPlaceholder.png';
+import { Box, Card, Typography, Rating } from "@mui/material"
+import { styled } from "@mui/material/styles"
+import spacing from "theme/spacing"
+import { useNavigate } from "react-router-dom"
+import AvatarPlaceholder from "icons/AvatarPlaceholder.png"
 
 const StyledTypography = styled(Typography)`
-  width: '50%';
+  width: "50%";
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   hover {
     overflow: visible;
   }
-`;
+`
 
 const StyledCard = styled(Card)`
   background: #f7f7f8;
@@ -24,28 +24,33 @@ const StyledCard = styled(Card)`
   padding: ${spacing.md}px;
   height: 120px;
   display: flex;
-`;
+`
 
-const StyledImg = styled('img')({
-  width: '50%',
-});
+const StyledImg = styled("img")({
+  width: "50%",
+})
 
 // @ts-ignore
 export default function NFTListCard({ event }) {
-  const { id, name, start_date, image_url } = event;
+  const { id, name, start_date, image_url } = event
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const goToNFTView = () => navigate(`/event/${id}`);
+  const goToNFTView = () => navigate(`/event/${id}`)
 
   return (
     <StyledCard
       onClick={() => {
-        goToNFTView();
+        goToNFTView()
       }}
     >
       <Box display="flex">
-        <Box display="flex" flexDirection="column" justifyContent="space-between" width="50%">
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-between"
+          width="50%"
+        >
           <StyledTypography variant="h6">{`${name}`}</StyledTypography>
 
           <StyledTypography variant="body1">{`${start_date}`}</StyledTypography>
@@ -57,5 +62,5 @@ export default function NFTListCard({ event }) {
         )}
       </Box>
     </StyledCard>
-  );
+  )
 }

@@ -6,6 +6,6 @@ const spacing = {
   xl: 32,
   xxl: 50,
   xxxl: 160,
-};
+}
 
-export default spacing;
+export default spacing
