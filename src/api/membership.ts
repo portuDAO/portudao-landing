@@ -21,7 +21,7 @@ const getNonceSignature = async (message: string, providerName: string) => {
   const add = await signer.getAddress()
   // console.log('Address:', add);
 
-  const endpoint = `${process.env.REACT_APP_API_HOSTNAME}/api/membership/${add}`
+  const endpoint = `${process.env.REACT_APP_API_HOSTNAME}/api/membership/signature`
 
   // console.log('Endpoint', endpoint);
   const sig =
@@ -30,13 +30,13 @@ const getNonceSignature = async (message: string, providerName: string) => {
     msg: message,
     sig,
   }
-  const res = await axios.post(endpoint, bodyPayload)
+  const res = await axios.get(endpoint)
 
   if (res && res.data) {
-    // console.log('Response:', res);
+    // console.log("Response:", res)
     return res.data
   }
-  return false
+  return res
 }
 
 export default getNonceSignature

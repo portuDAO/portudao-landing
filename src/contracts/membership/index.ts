@@ -3,19 +3,19 @@ import getProvider from "wallets/utils"
 import { ethers } from "ethers"
 import { membershipContract } from "config"
 
-const ALCHEMY_API_KEY =
-  "https://eth-goerli.alchemyapi.io/v2/M1NeZMgxHETfrPflwiAGtiaMwn2bKMmX"
-const web3 = createAlchemyWeb3(ALCHEMY_API_KEY)
+const ALCHEMY_URL = `${process.env.REACT_APP_ALCHEMY_HOSTNAME}${process.env.REACT_APP_ALCHEMY_API_KEY}`
+const web3 = createAlchemyWeb3(ALCHEMY_URL)
 
 const mint = async (signature: string, message: string) => {
   try {
+    // console.log("web3", web3)
     const MembershipContract = new web3.eth.Contract(
       // @ts-ignore
       membershipContract.abi,
       membershipContract.address
     )
 
-    // console.log('MembershipContract', MembershipContract);
+    // console.log("MembershipContract", MembershipContract)
 
     const providerName = "metamask"
     const chosenProvider = getProvider(providerName)
@@ -26,7 +26,7 @@ const mint = async (signature: string, message: string) => {
     // console.log('Provider', provider);
     const signer = provider.getSigner()
     const walletAddress = await signer.getAddress()
-    // console.log('walletAddress', walletAddress);
+    // console.log("walletAddress", walletAddress)
 
     // set up transaction parameters
     const transactionParameters = {
