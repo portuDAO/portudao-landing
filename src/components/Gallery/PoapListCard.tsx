@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Box, Card, Typography, Rating } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import spacing from 'theme/spacing';
-import { useNavigate } from 'react-router-dom';
-import AvatarPlaceholder from 'icons/AvatarPlaceholder.png';
+import { Box, Card, Typography, Rating } from "@mui/material"
+import { styled } from "@mui/material/styles"
+import spacing from "theme/spacing"
+import { useNavigate } from "react-router-dom"
+import AvatarPlaceholder from "icons/AvatarPlaceholder.png"
 
 const StyledCard = styled(Card)`
   background: #f7f7f8;
@@ -13,24 +13,24 @@ const StyledCard = styled(Card)`
   border-radius: 16px;
   padding: ${spacing.md}px;
   min-height: 230px;
-`;
+`
 
-const StyledImg = styled('img')({
-  maxWidth: '100%',
-});
+const StyledImg = styled("img")({
+  maxWidth: "100%",
+})
 
 // @ts-ignore
 export default function PoapListCard({ poap }) {
-  const { event, supply } = poap;
+  const { event, supply } = poap
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const goToEvent = () => navigate(`/event/${event.id}`);
+  const goToEvent = () => navigate(`/event/${event.id}`)
 
   return (
     <StyledCard
       onClick={() => {
-        goToEvent();
+        goToEvent()
       }}
     >
       <Box display="flex" flexDirection="column">
@@ -47,5 +47,5 @@ export default function PoapListCard({ poap }) {
         <Typography variant="h6">{event.name}</Typography>
       </Box>
     </StyledCard>
-  );
+  )
 }

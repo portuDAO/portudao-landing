@@ -1,7 +1,7 @@
-import { Suspense, lazy } from 'react';
-import { RouteObject } from 'react-router';
-import NavbarLayout from 'layouts/NavbarLayout';
-import LoadingScreen from './components/LoadingScreen';
+import { Suspense, lazy } from "react"
+import { RouteObject } from "react-router"
+import NavbarLayout from "layouts/NavbarLayout"
+import LoadingScreen from "./components/LoadingScreen"
 
 // @ts-ignore
 const Loadable = (Component) => (props) =>
@@ -10,36 +10,41 @@ const Loadable = (Component) => (props) =>
       {/* @ts-ignore */}
       <Component {...props} />
     </Suspense>
-  );
+  )
 
-const Landing = Loadable(lazy(() => import('views/Landing')));
-const Events = Loadable(lazy(() => import('views/Events')));
-const Event = Loadable(lazy(() => import('views/Event')));
-const Gallery = Loadable(lazy(() => import('views/Gallery')));
+const Landing = Loadable(lazy(() => import("views/Landing")))
+const Events = Loadable(lazy(() => import("views/Events")))
+const Event = Loadable(lazy(() => import("views/Event")))
+const Membership = Loadable(lazy(() => import("views/Membership")))
+const Gallery = Loadable(lazy(() => import("views/Gallery")))
 
 const routes: RouteObject[] = [
   {
-    path: '',
+    path: "",
     element: <NavbarLayout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Landing />,
       },
       {
-        path: '/events',
+        path: "/events",
         element: <Events />,
       },
       {
-        path: '/event/:eventId',
+        path: "/membership",
+        element: <Membership />,
+      },
+      {
+        path: "/event/:eventId",
         element: <Event />,
       },
       {
-        path: '/gallery',
+        path: "/gallery",
         element: <Gallery />,
       },
     ],
   },
-];
+]
 
-export default routes;
+export default routes

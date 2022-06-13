@@ -1,8 +1,8 @@
-import { Box, Button, Typography } from '@mui/material';
-import PortudaoLogo from 'icons/logo_final.png';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import spacing from 'theme/spacing';
+import { Box, Button, Typography } from "@mui/material"
+import PortudaoLogo from "icons/logo_final.png"
+import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
+import spacing from "theme/spacing"
 
 const Container = styled(Box)`
   display: flex;
@@ -19,15 +19,15 @@ const Container = styled(Box)`
     margin-bottom: ${spacing.md}px;
     font-weight: bold;
   }
-`;
+`
 
 export default function Landing(): JSX.Element {
-  const navigate = useNavigate();
-  const goToEvents = () => navigate('/events');
+  const navigate = useNavigate()
+  const goToEvents = () => navigate("/events")
 
   return (
     <Container>
-      <img style={{ width: '24%' }} src={PortudaoLogo} alt="" />
+      <img style={{ width: "24%" }} src={PortudaoLogo} alt="" />
       <Typography variant="h4" style={{ marginBottom: 0 }}>
         O potencial disruptivo
       </Typography>
@@ -41,11 +41,11 @@ export default function Landing(): JSX.Element {
       <Typography variant="h5">das reuniões semanais da portuDAO.</Typography>
       <Button
         variant="contained"
-        style={{ marginBottom: `${spacing.xl}px`, width: '150px' }}
+        style={{ marginBottom: `${spacing.xl}px`, width: "150px" }}
         onClick={goToEvents}
       >
         <Typography variant="body1">CLAIM</Typography>
       </Button>
     </Container>
-  );
+  )
 }
