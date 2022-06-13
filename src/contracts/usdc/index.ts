@@ -26,18 +26,18 @@ const approve = async () => {
     const contract = getContract(tokenAddress, ERC20_ABI, signer)
     // console.log('Contract', contract);
     const walletAddress = await signer.getAddress()
-    // console.log('Address:', walletAddress);
+    console.log("Address:", walletAddress)
     const allowance = await contract.allowance(
       walletAddress,
       membershipContract.address
     )
-    if (allowance < 1.0) {
+    console.log("Allowance:", allowance)
+    if (allowance < 50.0) {
       // console.log('USDCContract', FeeContract);
       // console.log('USDCContract methods', FeeContract.methods);
       const transactionParameters = {
         to: tokenAddress,
         from: walletAddress,
-        gas: ethers.utils.hexlify(46227),
         data: FeeContract.methods
           .approve(membershipContract.address, ethers.utils.parseUnits("1", 18))
           .encodeABI(),

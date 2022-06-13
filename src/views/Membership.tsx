@@ -26,31 +26,37 @@ export default function Membership(): JSX.Element {
   const [pendingStatus, setPendingStatus] = useState(true)
 
   const checkAllowance = async () => {
-    const chosenProvider = getProvider("metamask")
-    const provider = new ethers.providers.Web3Provider(chosenProvider)
-    const signer = provider.getSigner()
-    const memberShipContract = getContract(
-      membershipContract.feeAddress,
-      ERC20_ABI,
-      signer
-    )
-    // console.log('Contract', memberShipContract);
-    const walletAddress = await signer.getAddress()
-    // console.log('Address:', walletAddress);
-    const allowance = await memberShipContract.allowance(
-      walletAddress,
-      membershipContract.address
-    )
-
-    if (allowance >= membershipContract.allowance) {
-      setTokenApproved(true)
-      setPendingStatus(false)
+    try {
+      const chosenProvider = getProvider("metamask")
+      const provider = new ethers.providers.Web3Provider(chosenProvider)
+      const signer = provider.getSigner()
+      const memberShipContract = getContract(
+        membershipContract.feeAddress,
+        ERC20_ABI,
+        signer
+      )
+      console.log("Contract all", memberShipContract)
+      const walletAddress = await signer.getAddress()
+      console.log("Address all:", walletAddress)
+      console.log("membershipContract.address: all", membershipContract.address)
+      const allowance = await memberShipContract.allowance(
+        walletAddress,
+        membershipContract.address
+      )
+      console.log("allowance:", allowance)
+      console.log("membershipContract.allowance:", membershipContract.allowance)
+      if (allowance >= membershipContract.allowance) {
+        setTokenApproved(true)
+      }
+    } catch (error) {
+      console.log("Error checking allowance", error)
     }
   }
 
   useEffect(() => {
     checkAllowance()
-  })
+    setPendingStatus(false)
+  }, [])
 
   const mintNFT = async (signature: string, message: string) => {
     await mint(signature, message)
@@ -59,11 +65,10 @@ export default function Membership(): JSX.Element {
 
   const fetchSignature = async () => {
     const timestamp = Date.now()
-    const msg = timestamp.toString()
-    const res = await getNonceSignature(msg, "metamask")
+    const res = await getNonceSignature("metamask")
     if (res) {
-      const { sig } = res
-      await mintNFT(sig, msg)
+      const { signature, nonce } = res
+      await mintNFT(signature, nonce.toString())
     }
   }
 

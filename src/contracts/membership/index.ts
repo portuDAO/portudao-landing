@@ -3,8 +3,7 @@ import getProvider from "wallets/utils"
 import { ethers } from "ethers"
 import { membershipContract } from "config"
 
-const ALCHEMY_API_KEY =
-  "https://eth-goerli.alchemyapi.io/v2/M1NeZMgxHETfrPflwiAGtiaMwn2bKMmX"
+const ALCHEMY_API_KEY = `${process.env.REACT_APP_ALCHEMY_HOSTNAME}${process.env.REACT_APP_ALCHEMY_API_KEY}`
 const web3 = createAlchemyWeb3(ALCHEMY_API_KEY)
 
 const mint = async (signature: string, message: string) => {
@@ -16,6 +15,8 @@ const mint = async (signature: string, message: string) => {
     )
 
     // console.log('MembershipContract', MembershipContract);
+    console.log("signature mint", signature)
+    console.log("message mint", message)
 
     const providerName = "metamask"
     const chosenProvider = getProvider(providerName)
