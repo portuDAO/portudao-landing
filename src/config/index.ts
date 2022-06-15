@@ -34,19 +34,19 @@ const polygonTestnetTokens = {
 
 export const membershipContract = {
   feeAddress:
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV !== "development"
       ? polygonMainnetTokens.usdc.address
       : polygonTestnetTokens.link.address,
-  allowance: process.env.NODE_ENV === "development" ? 50 : 1,
+  allowance: process.env.NODE_ENV !== "development" ? 50 : 1,
   address:
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV !== "development"
       ? "0x8e68c81ba9e3264e236b6d2273f601b385baa7b3"
       : "0x0e562f5D6869f20b5243E6C441149705906094E8",
   abi: membershipAbi,
 }
 
 export const tokens =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV !== "development"
     ? polygonMainnetTokens
     : polygonTestnetTokens
 

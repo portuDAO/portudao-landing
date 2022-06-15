@@ -32,14 +32,17 @@ const approve = async () => {
       membershipContract.address
     )
     console.log("Allowance:", allowance)
-    if (allowance < 50.0) {
+    if (allowance < membershipContract.allowance) {
       // console.log('USDCContract', FeeContract);
       // console.log('USDCContract methods', FeeContract.methods);
       const transactionParameters = {
         to: tokenAddress,
         from: walletAddress,
         data: FeeContract.methods
-          .approve(membershipContract.address, ethers.utils.parseUnits("1", 18))
+          .approve(
+            membershipContract.address,
+            ethers.utils.parseUnits(membershipContract.allowance.toString(), 18)
+          )
           .encodeABI(),
       }
 
