@@ -10,11 +10,11 @@ const web3 = createAlchemyWeb3(ALCHEMY_URL)
 
 const approve = async () => {
   try {
-    const tokenAddress = membershipContract.feeAddress
+    const tokenAddress = membershipContract.feeContract.address
     const FeeContract = new web3.eth.Contract(
       // @ts-ignore
       ERC20_ABI,
-      membershipContract.feeAddress
+      membershipContract.feeContract.address
     )
     // console.log('Fee Token Address:', tokenAddress);
     // const aa = getProviderOrSigner(library, account);
