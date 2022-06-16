@@ -41,7 +41,10 @@ const approve = async () => {
         data: FeeContract.methods
           .approve(
             membershipContract.address,
-            ethers.utils.parseUnits(membershipContract.allowance.toString(), 18)
+            ethers.utils.parseUnits(
+              membershipContract.allowance.toString(),
+              membershipContract.feeContract.decimals
+            )
           )
           .encodeABI(),
       }
