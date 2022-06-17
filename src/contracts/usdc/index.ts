@@ -10,11 +10,11 @@ const web3 = createAlchemyWeb3(ALCHEMY_URL)
 
 const approve = async () => {
   try {
-    const tokenAddress = membershipContract.feeAddress
+    const tokenAddress = membershipContract.feeContract.address
     const FeeContract = new web3.eth.Contract(
       // @ts-ignore
       ERC20_ABI,
-      membershipContract.feeAddress
+      membershipContract.feeContract.address
     )
     // console.log('Fee Token Address:', tokenAddress);
     // const aa = getProviderOrSigner(library, account);
@@ -32,14 +32,20 @@ const approve = async () => {
       membershipContract.address
     )
     console.log("Allowance:", allowance)
-    if (allowance < 50.0) {
+    if (allowance < membershipContract.allowance) {
       // console.log('USDCContract', FeeContract);
       // console.log('USDCContract methods', FeeContract.methods);
       const transactionParameters = {
         to: tokenAddress,
         from: walletAddress,
         data: FeeContract.methods
-          .approve(membershipContract.address, ethers.utils.parseUnits("1", 18))
+          .approve(
+            membershipContract.address,
+            ethers.utils.parseUnits(
+              membershipContract.allowance.toString(),
+              membershipContract.feeContract.decimals
+            )
+          )
           .encodeABI(),
       }
 

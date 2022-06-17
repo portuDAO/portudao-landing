@@ -31,7 +31,7 @@ export default function Membership(): JSX.Element {
       const provider = new ethers.providers.Web3Provider(chosenProvider)
       const signer = provider.getSigner()
       const memberShipContract = getContract(
-        membershipContract.feeAddress,
+        membershipContract.feeContract.address,
         ERC20_ABI,
         signer
       )

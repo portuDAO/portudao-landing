@@ -14,7 +14,7 @@ const polygonMainnetTokens = {
   usdc: {
     chainId: ChainIdPolygon.MAINNET,
     address: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-    decimals: 18,
+    decimals: 6,
     symbol: "USDC",
     name: "Polygon-Peg USD Coin",
     projectLink: "https://www.centre.io/usdc",
@@ -33,20 +33,23 @@ const polygonTestnetTokens = {
 }
 
 export const membershipContract = {
-  feeAddress:
-    process.env.NODE_ENV === "development"
-      ? polygonMainnetTokens.usdc.address
-      : polygonTestnetTokens.link.address,
-  allowance: process.env.NODE_ENV === "development" ? 50 : 1,
+  allowance: process.env.NODE_ENV !== "development" ? 50 : 1,
+  feeContract: {
+    address:
+      process.env.NODE_ENV !== "development"
+        ? "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"
+        : "0x326c977e6efc84e512bb9c30f76e30c160ed06fb",
+    decimals: process.env.NODE_ENV !== "development" ? 6 : 18,
+  },
   address:
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV !== "development"
       ? "0x8e68c81ba9e3264e236b6d2273f601b385baa7b3"
       : "0x0e562f5D6869f20b5243E6C441149705906094E8",
   abi: membershipAbi,
 }
 
 export const tokens =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV !== "development"
     ? polygonMainnetTokens
     : polygonTestnetTokens
 
